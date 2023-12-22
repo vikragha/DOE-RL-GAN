@@ -39,4 +39,3 @@ discriminator_output_fake = discriminator(fake_data)
 # Print the discriminator output for the fake data
 print("Discriminator Output for Fake Data:")
 print(discriminator_output_fake)
-
