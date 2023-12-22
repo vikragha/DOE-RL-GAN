@@ -23,21 +23,26 @@ class Generator(nn.Module):
 
     def forward(self, input_tensor):
         # Forward pass through the generator
-        return self.model(input_tensor)
+        generated_data = self.model(input_tensor)
+
+        # Calculate ansatz representation (generator loss)
+        ansatz_output = self.ansatz_representation()
+
+        return generated_data, ansatz_output
 
 # Example usage:
 # Define input and output sizes based on your requirements
 input_size = 100
 output_size = 784  # Adjust based on the dimensionality of your generated data
 
-# Create an instance of the generator
-generator = Generator(input_size, output_size)
+# Create an instance of the generator with the ansatz representation
+generator = Generator(input_size, output_size, ansatz_representation)
 
 # Generate fake data by passing random input to the generator
 random_input = torch.randn(1, input_size)
-fake_data = generator(random_input)
+fake_data, ansatz_output = generator(random_input)
 
-# Print the generated fake data
+# Print the generated fake data and ansatz output
 print("Generated Fake Data:")
 print(fake_data)
-
+print("Ansatz Output (Generator Loss):", ansatz_output.item())
